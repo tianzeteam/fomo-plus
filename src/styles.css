@@ -1,0 +1,425 @@
+/**
+ * Fomo Plus — visual layer.
+ *
+ * Everything is scoped under html[data-fp="on"], so switching the extension off
+ * restores the app's native markup. Colours come from the app's own tokens
+ * (--color-bg-*, --color-text-*) with literal fallbacks.
+ */
+:root {
+  --fp-bg-primary: var(--color-bg-primary, #060510);
+  --fp-bg-secondary: var(--color-bg-secondary, #12111a);
+  --fp-bg-tertiary: var(--color-bg-tertiary, #cbd0eb1a);
+  --fp-text-primary: var(--color-text-primary, #f7f7f7);
+  --fp-text-secondary: var(--color-text-secondary, #9899a3);
+  --fp-text-tertiary: var(--color-text-tertiary, #474b52);
+  --fp-green: var(--color-green, #21c95e);
+  --fp-red: var(--color-red, #ff622e);
+  --fp-white: #ffffff;
+  --fp-accent: var(--color-accent-primary, #516af6);
+  --fp-radius: 12px;
+  --fp-gap: 8px;
+  --fp-pad: 12px;
+}
+
+html[data-fp="off"] [data-fp-injected] {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------------- panel --- */
+html[data-fp="on"] [data-fp-panel] {
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--fp-accent) 4%, transparent), transparent 120px),
+    var(--fp-bg-primary);
+}
+
+html[data-fp="on"] [data-fp-header] {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--fp-bg-tertiary);
+}
+
+html[data-fp="on"] [data-fp-header] button {
+  letter-spacing: 0.01em;
+}
+
+html[data-fp="on"] [data-fp-header] button:hover {
+  color: var(--fp-text-primary);
+}
+
+/* filter row: 交易者 · 筛选 >$500 */
+html[data-fp="on"] [data-fp-panel] div[class*="px-3"][class*="pt-2"] {
+  border-bottom: 1px solid var(--fp-bg-tertiary);
+  padding-bottom: 10px;
+}
+
+html[data-fp="on"] [data-fp-panel] div[class*="px-3"][class*="pt-2"] button[class*="flex-wrap"] {
+  width: 100%;
+  border-radius: 8px;
+  padding: 6px 8px;
+  transition: background 0.15s ease;
+}
+
+html[data-fp="on"] [data-fp-panel] div[class*="px-3"][class*="pt-2"] button[class*="flex-wrap"]:hover {
+  background: var(--fp-bg-secondary);
+}
+
+html[data-fp="on"] [data-fp-panel] div[class*="px-3"][class*="pt-2"] button[class*="flex-wrap"] span[class*="bg-bg-tertiary"] {
+  border: 1px solid color-mix(in oklab, var(--fp-accent) 40%, transparent);
+  background: color-mix(in oklab, var(--fp-accent) 14%, transparent);
+  border-radius: 6px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------- feed list -- */
+html[data-fp="on"] [data-fp-viewport] {
+  scrollbar-width: thin;
+  scrollbar-color: var(--fp-text-tertiary) transparent;
+  padding: 6px 6px 12px;
+}
+
+html[data-fp="on"] [data-fp-viewport]::-webkit-scrollbar {
+  width: 6px;
+}
+
+html[data-fp="on"] [data-fp-viewport]::-webkit-scrollbar-thumb {
+  background: var(--fp-text-tertiary);
+  border-radius: 999px;
+}
+
+/* the virtual list keeps inline absolute offsets — kill separators on non-card rows only */
+html[data-fp="on"] [data-fp-row] > div[class*="border-b"]:not([data-fp-item]) {
+  border-bottom-color: transparent;
+}
+
+html[data-fp="on"] [data-fp-item] {
+  border: 1px solid var(--fp-bg-tertiary);
+  border-radius: var(--fp-radius);
+  background: color-mix(in oklab, var(--fp-bg-secondary) 55%, transparent);
+  margin-bottom: var(--fp-gap);
+  padding: var(--fp-pad) !important;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+/* 买入 = green frame, 卖出 = red frame, 观点 = white frame */
+html[data-fp="on"] [data-fp-item][data-fp-side="buy"] {
+  border-color: color-mix(in oklab, var(--fp-green) 42%, transparent);
+  background: color-mix(in oklab, var(--fp-green) 6%, var(--fp-bg-secondary));
+}
+
+html[data-fp="on"] [data-fp-item][data-fp-side="sell"] {
+  border-color: color-mix(in oklab, var(--fp-red) 42%, transparent);
+  background: color-mix(in oklab, var(--fp-red) 6%, var(--fp-bg-secondary));
+}
+
+html[data-fp="on"] [data-fp-item][data-fp-side="view"] {
+  border-color: color-mix(in oklab, var(--fp-white) 52%, transparent);
+  background: color-mix(in oklab, var(--fp-white) 5%, var(--fp-bg-secondary));
+}
+
+html[data-fp="on"] [data-fp-item][data-fp-side="buy"]:hover {
+  border-color: color-mix(in oklab, var(--fp-green) 75%, transparent);
+  background: color-mix(in oklab, var(--fp-green) 10%, var(--fp-bg-secondary));
+}
+
+html[data-fp="on"] [data-fp-item][data-fp-side="sell"]:hover {
+  border-color: color-mix(in oklab, var(--fp-red) 75%, transparent);
+  background: color-mix(in oklab, var(--fp-red) 10%, var(--fp-bg-secondary));
+}
+
+html[data-fp="on"] [data-fp-item][data-fp-side="view"]:hover {
+  border-color: color-mix(in oklab, var(--fp-white) 82%, transparent);
+  background: color-mix(in oklab, var(--fp-white) 8%, var(--fp-bg-secondary));
+}
+
+html[data-fp="on"] [data-fp-item][data-fp-side="buy"]:hover img[class*="rounded-full"] {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--fp-green) 55%, transparent);
+}
+
+html[data-fp="on"] [data-fp-item][data-fp-side="sell"]:hover img[class*="rounded-full"] {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--fp-red) 55%, transparent);
+}
+
+html[data-fp="on"] [data-fp-item][data-fp-side="view"]:hover img[class*="rounded-full"] {
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--fp-white) 55%, transparent);
+}
+
+/* trader line: name · chip · time */
+html[data-fp="on"] [data-fp-item] div[class*="truncate"] {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+html[data-fp="on"] [data-fp-item] div[class*="gap-1"][class*="text-sm"] {
+  font-size: 13px;
+}
+
+/* action chip now leads the token row — the app's own chip next to the name is hidden */
+html[data-fp="on"] [data-fp-chip-hidden] {
+  display: none;
+}
+
+[data-fp-injected="action"] {
+  flex: none;
+  border-radius: 6px;
+  padding: 1px 6px;
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  border: 1px solid color-mix(in oklab, currentColor 40%, transparent);
+}
+
+html[data-fp="on"] [data-fp-item] span[class*="text-text-tertiary"] {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* token line: avatar · ticker · chain · $size · MC */
+html[data-fp="on"] [data-fp-item] [class*="border-dotted-underline"] {
+  border-bottom: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* every line flows from the left edge — the name sizes to its content, time follows it */
+html[data-fp="on"] [data-fp-item] div[class*="flex-1"][class*="flex-wrap"] {
+  flex: 0 1 auto;
+}
+
+/* token line stays on one line: the ticker truncates instead of pushing $size/MC down */
+html[data-fp="on"] [data-fp-numbers] {
+  flex-wrap: nowrap;
+  column-gap: 6px;
+}
+
+html[data-fp="on"] [data-fp-numbers] > [class*="border-dotted-underline"] {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+html[data-fp="on"] [data-fp-numbers] > span {
+  flex: none;
+  font-size: 12.5px;
+}
+
+/* breathing room before the $size · 市值 cluster */
+html[data-fp="on"] [data-fp-numbers] [data-fp-amount] {
+  margin-left: 12px;
+}
+
+html[data-fp="on"] [data-fp-amount] {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+html[data-fp="on"] [data-fp-mcap] {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+[data-fp-injected="handle"] {
+  flex-basis: 100%;
+  font-size: 11px;
+  line-height: 1.1;
+  color: var(--fp-text-secondary);
+  letter-spacing: 0.01em;
+}
+
+[data-fp-injected="chain"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 17px;
+  padding: 0 6px;
+  margin-left: 2px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--fp-chain-color) 45%, transparent);
+  background: color-mix(in oklab, var(--fp-chain-color) 14%, transparent);
+  color: var(--fp-chain-color);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+[data-fp-injected="chain-dot"] {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--fp-chain-color);
+}
+
+/* contract address row */
+[data-fp-injected="ca"] {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  margin-top: 2px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--fp-bg-tertiary);
+  color: var(--fp-text-secondary);
+  font-size: 10.5px;
+}
+
+[data-fp-injected="ca-label"] {
+  flex: none;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--fp-text-tertiary);
+}
+
+[data-fp-injected="ca-value"] {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  font-size: 10.5px;
+  color: var(--fp-text-secondary);
+}
+
+[data-fp-injected="ca-copy"] {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1px solid var(--fp-bg-tertiary);
+  background: transparent;
+  color: var(--fp-text-secondary);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  -webkit-mask: none;
+}
+
+[data-fp-injected="ca-copy"]::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin: 0 auto;
+  background: currentColor;
+  -webkit-mask: center / contain no-repeat
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>');
+  mask: center / contain no-repeat
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>');
+}
+
+[data-fp-injected="ca-copy"]:hover {
+  color: var(--fp-text-primary);
+  border-color: color-mix(in oklab, var(--fp-accent) 55%, transparent);
+  background: color-mix(in oklab, var(--fp-accent) 16%, transparent);
+}
+
+[data-fp-injected="ca-copy"][data-fp-copied] {
+  color: var(--fp-green);
+  border-color: color-mix(in oklab, var(--fp-green) 55%, transparent);
+}
+
+[data-fp-injected="ca-copy"][data-fp-copied]::before {
+  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>');
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>');
+}
+
+/* ------------------------------------------------------- status indicator -- */
+html[data-fp="off"] [data-fp-injected="status"] {
+  display: none !important;
+}
+
+[data-fp-injected="status"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 20px;
+  padding: 0 8px;
+  margin-right: 4px;
+  border-radius: 999px;
+  border: 1px solid var(--fp-bg-tertiary);
+  background: color-mix(in oklab, var(--fp-bg-secondary) 80%, transparent);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--fp-text-secondary);
+  white-space: nowrap;
+}
+
+[data-fp-injected="status-dot"] {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #d9a14a;
+  box-shadow: 0 0 0 0 color-mix(in oklab, #d9a14a 60%, transparent);
+  animation: fp-pulse 1.6s ease-out infinite;
+}
+
+[data-fp-injected="status"][data-fp-state="open"] [data-fp-injected="status-dot"] {
+  background: var(--fp-green);
+  animation: none;
+}
+
+[data-fp-injected="status"][data-fp-state="closed"] [data-fp-injected="status-dot"],
+[data-fp-injected="status"][data-fp-state="error"] [data-fp-injected="status-dot"] {
+  background: var(--fp-red);
+  animation: none;
+}
+
+@keyframes fp-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, #d9a14a 55%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+
+/* ------------------------------------------------------------- densities -- */
+html[data-fp="on"][data-fp-density="compact"] {
+  --fp-gap: 6px;
+  --fp-pad: 9px;
+}
+
+html[data-fp="on"][data-fp-density="compact"] [data-fp-item] div[class*="truncate"] {
+  font-size: 12px;
+}
+
+html[data-fp="on"][data-fp-density="compact"] [data-fp-injected="ca"] {
+  padding-top: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-fp="on"] [data-fp-item],
+  [data-fp-injected="status-dot"] {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* the app's own inline "CA 0x…" line is replaced by our full-width row */
+html[data-fp="on"][data-fp-ca="1"] [data-fp-ca-native] {
+  display: none;
+}
+
+/* profit rows: ticker + chain chip on one line, market cap wrapped under it */
+html[data-fp="on"] [data-fp-token-group] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 6px;
+}
+
+html[data-fp="on"] [data-fp-token-group] > [data-fp-mcap-line] {
+  flex-basis: 100%;
+}
+
+html[data-fp="on"] [data-fp-token-group] > [class*="border-dotted-underline"],
+html[data-fp="on"] [data-fp-token-group] > [class*="text-sm"] {
+  order: 1;
+}
+
+html[data-fp="on"] [data-fp-token-group] > [data-fp-injected="chain"] {
+  order: 2;
+}

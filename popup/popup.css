@@ -1,0 +1,117 @@
+:root {
+  color-scheme: dark;
+  --bg: #060510;
+  --surface: #12111a;
+  --line: #cbd0eb1a;
+  --text: #f7f7f7;
+  --muted: #9899a3;
+  --accent: #516af6;
+  --green: #21c95e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 268px;
+  margin: 0;
+  padding: 14px;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.4 -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.mark {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), #8f6bff);
+  box-shadow: inset 0 0 0 1px #ffffff1f;
+}
+
+h1 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+header p {
+  margin: 1px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+main {
+  padding: 6px 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 2px;
+  cursor: pointer;
+}
+
+.row:hover {
+  background: #ffffff08;
+  border-radius: 8px;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  width: 32px;
+  height: 18px;
+  border-radius: 999px;
+  background: #ffffff1a;
+  transition: background 0.15s ease;
+  cursor: pointer;
+}
+
+input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--text);
+  transition: transform 0.15s ease;
+}
+
+input[type="checkbox"]:checked {
+  background: var(--green);
+}
+
+input[type="checkbox"]:checked::after {
+  transform: translateX(14px);
+}
+
+select {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font: inherit;
+}
+
+footer {
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10.5px;
+}

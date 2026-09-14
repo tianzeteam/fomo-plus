@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="popup.css" />
+    <title>Fomo Plus</title>
+  </head>
+  <body>
+    <header>
+      <span class="mark"></span>
+      <div>
+        <h1>Fomo Plus</h1>
+        <p>实时动态栏增强</p>
+      </div>
+    </header>
+    <main>
+      <label class="row">
+        <span>启用增强</span>
+        <input type="checkbox" data-key="enabled" />
+      </label>
+      <label class="row">
+        <span>显示 @handle</span>
+        <input type="checkbox" data-key="handle" />
+      </label>
+      <label class="row">
+        <span>显示链标签</span>
+        <input type="checkbox" data-key="chain" />
+      </label>
+      <label class="row">
+        <span>合约地址 + 一键复制</span>
+        <input type="checkbox" data-key="ca" />
+      </label>
+      <label class="row">
+        <span>连接状态</span>
+        <input type="checkbox" data-key="status" />
+      </label>
+      <label class="row">
+        <span>密度</span>
+        <select data-key="density">
+          <option value="cozy">舒适</option>
+          <option value="compact">紧凑</option>
+        </select>
+      </label>
+    </main>
+    <footer>仅作用于「买入 / 卖出」通知，改动即时生效于已打开的 fomo.family 页面</footer>
+    <script src="popup.js"></script>
+  </body>
+</html>

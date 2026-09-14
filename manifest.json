@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Fomo Plus · 实时动态增强",
+  "version": "1.0.0",
+  "description": "优化 fomo.family 左侧实时动态(通知)栏：卡片化布局、链标签、@handle、合约地址一键复制、连接状态。",
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Fomo Plus 设置"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://fomo.family/*"],
+      "js": ["src/inject.js"],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": false
+    },
+    {
+      "matches": ["https://fomo.family/*"],
+      "js": ["src/content.js"],
+      "css": ["src/styles.css"],
+      "run_at": "document_start",
+      "world": "ISOLATED",
+      "all_frames": false
+    }
+  ]
+}
