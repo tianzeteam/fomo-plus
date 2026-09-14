@@ -1,4 +1,4 @@
-84d21ec2ffce03d8f0378f3acb94da0c  manifest.json
+0f06a5da6330e78d5cc7302c915fe72c  manifest.json
 e1757f52ee55d6573d432c899a489e95  src/content.js
 4bc94b12f77526adfae18374c7ac7471  src/inject.js
 4bae21fab333e7b7cc3587042cf18071  src/styles.css
@@ -7,4 +7,5 @@ c52c7f8250a9d98bde82af1d88afbd18  popup/popup.html
 f167daf48be976d9749161e2699e09f2  popup/popup.js
 f0a5b2d918e0063233b21f595fd938dd  docs/screenshot-after.png
 f40f5ae4494ec6669f7644a13f9cdd3b  docs/screenshot-before.png
-ca3184b4b8615c5713a512de0ee386d7  README.md
+7a5ec277f05da96dfe8c2e9c665c3efe  README.md
+5033e7542004fcd5cc654eca22f18334  baseline.md5
