@@ -1,6 +1,14 @@
 # Fomo Plus · 实时动态增强
 
-非官方浏览器扩展（MV3）—— 优化 [fomo.family](https://fomo.family) 左侧实时动态（通知）栏：卡片化布局、链标签、@handle、合约地址一键复制、连接状态。
+非官方浏览器扩展（MV3）—— 优化 [fomo.family](https://fomo.family) 左侧实时动态（通知）栏。
+
+## 对比
+
+| 增强后 | fomo 原生 |
+| --- | --- |
+| ![增强后：卡片化、@handle、链标签、CA 行](docs/screenshot-after.png) | ![原生：紧凑单行列表](docs/screenshot-before.png) |
+
+差异：每条通知成为独立卡片（买入绿框 / 卖出红框 / 观点白框），新增 @handle、链标签（SOL/ETH/BNB…）与合约地址整行 + 一键复制；头像列与正文列对齐，密度与层级一致，长币种名不再挤压。盈利与官方公告保持原生渲染。
 
 > 与 fomo.family / Robinhood 无任何关系；仅本地展示增强，不代理任何交易行为。
 
