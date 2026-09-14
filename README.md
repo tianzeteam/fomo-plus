@@ -14,12 +14,12 @@
 
 ## 安全性
 
-- **不读取任何凭据**：不碰 cookie / localStorage / sessionStorage / IndexedDB；无 host 权限之外的 API
-- **不发起任何网络请求**：数据完全来自 app 自己的流量镜像（`src/inject.js` 只包装页面自身的 fetch/XHR/WS，参数原样透传）
+- **不读取任何凭据**：不碰 cookie / localStorage / sessionStorage / IndexedDB；`permissions` 仅 `storage`，无 `host_permissions`
+- **不发起任何网络请求**：数据完全来自 app 自己的流量镜像（`src/inject.js` 只包装页面自身的 fetch/XHR/WS，参数原样透传、只读响应）
 - **无注入落点**：无 `innerHTML` / `eval` / `new Function` / `document.write`；页面数据只经 `textContent` / `setAttribute`
-- 无后台脚本、无遥测、无远程代码、无第三方依赖（6 个文件，~700 行）
-- 隔离世界只接收 JSON 字符串；页面对象图 / getter / 原型链不会跨越边界
-- 事件通道带 `v:1` 协议号、字段白名单、长度/条数上限；地址以 app 渲染的 DOM 为准（payload 只补空缺）
+- 隔离世界只接收 JSON 字符串（带 `v:1` 协议号、字段白名单、64 字符长度与 200 条/事件上限）；页面对象图 / getter / 原型链不会跨越边界
+- 合约地址以 **app 自己渲染的 DOM 为准**（payload 只补空缺，且必须过 40 位 EVM / 32-44 位 Solana 地址正则）；链标签取自 app 的 DOM，不采信网络数据
+- 无后台脚本、无遥测、无远程代码、无第三方依赖（7 个文件，~750 行）
 
 ### 边界（务必了解）
 
